@@ -2,23 +2,23 @@ from dash import Dash, html, dcc, dash_table, callback, ctx, MATCH
 from dash.dependencies import Input, Output, State
 from dash.dash_table.Format import Format, Scheme, Symbol
 import dash_bootstrap_components as dbc
- 
+
 import plotly.express as px
 import pandas as pd   
 import plotly.graph_objects as go
 import numpy as np
- 
+
 from datetime import date, datetime, timedelta
- 
+
 import yfinance as yf
- 
+
 from fredapi import Fred
 fred = Fred(api_key='dde97fbd2c97cba90d59383ce937ccad')
- 
+
 import random
- 
+
 max_date = date.today() - timedelta(days=365)
- 
+
 def generate_portfolio_weights(n):
     weights = []
     for i in range(n):
