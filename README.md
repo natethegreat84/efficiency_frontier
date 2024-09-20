@@ -2,7 +2,7 @@
 
 This POC combines data coming from the St Louis FED and YFinance.
 
-The data from the St. Louis FED is to get the 1 year treasury yield.
+The data from the St. Louis FED is to get the 1 year treasury yield.  You need to register with the FED in order to get a free API key
 
 YFinance is a free source to get closing prices for stocks.
 
