@@ -2,7 +2,7 @@ dash>=2.14.0
 pandas
 plotly==5.17.0
 numpy==1.24.3
-dash_bootstrap_components
+dash_bootstrap_components==1.5.0
 fredapi
 yfinance
 gunicorn
