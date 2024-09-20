@@ -1,0 +1,9 @@
+dash>=2.14.0
+random
+pandas
+plotly.express
+numpy==1.24.3
+dash_bootstrap_components
+fredapi
+yfinance
+gunicorn
