@@ -91,7 +91,7 @@ def simulation_engine(close_price_df ,weights, initial_investment, risk_free_rat
 one_year_treasury_list = fred.get_series('DGS1')
 oy_df = one_year_treasury_list.to_frame(name='Yield')
 
-app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 server = app.server
  
 app.layout = html.Div(
@@ -274,4 +274,4 @@ def display_stock_output(start_date, tickers, sims):
  
  
 if __name__ =='__main__':
-  app.run(debug=True)
+  app.run_server(debug=True)
