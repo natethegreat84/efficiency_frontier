@@ -49,7 +49,7 @@ def asset_allocation(df, weights, initial_investment):
     portfolio_df['Portfolio Value [$]'] = portfolio_df[portfolio_df != 'Date'].sum(axis = 1, numeric_only = True)
 
     # Calculate the portfolio percentage daily return and replace NaNs with zeros
-    portfolio_df['Portfolio Daily Return [%]'] = portfolio_df['Portfolio Value [$]'].pct_change(1) * 100 
+    portfolio_df['Portfolio Daily Return [%]'] = portfolio_df['Portfolio Value [$]'].pct_change(1) * 100
     portfolio_df.replace(np.nan, 0, inplace = True)
 
     return portfolio_df
@@ -86,7 +86,7 @@ def simulation_engine(close_price_df ,weights, initial_investment, risk_free_rat
     rf = risk_free_rate/100 # Try to set the risk free rate of return to 1% (assumption)
 
     # Calculate Sharpe ratio
-    sharpe_ratio = (expected_portfolio_return - rf)/expected_volatility 
+    sharpe_ratio = (expected_portfolio_return - rf)/expected_volatility
     return expected_portfolio_return, expected_volatility, sharpe_ratio, portfolio_df['Portfolio Value [$]'][-1:].values[0], return_on_investment.values[0]
 
 one_year_treasury_list = fred.get_series('DGS1')
@@ -212,7 +212,15 @@ def display_stock_output(start_date, tickers, sims):
     fig.add_trace(go.Scatter(x = [x_free], y = [y_free], mode="markers", name = "Risk Free Rate", marker = dict(size=[15], color = 'green')))
     fig.update_layout(coloraxis_colorbar = dict(y = 0.7, dtick = 5))
     fig.update_layout({'plot_bgcolor': "white"})
+    
+    line_slope = (optimal_portfolio_return-y_free)/optimal_volatility
+    point_3 = (line_slope*2*optimal_volatility) + y_free
+    
+    x_line = [0, optimal_volatility, 2*optimal_volatility ]
+    y_line = [y_free, optimal_portfolio_return, point_3]
 
+    fig.add_trace(go.Scatter(x=x_line, y = y_line, mode = 'lines'))
+    fig.update_layout(showlegend=False)
 
     fig2= px.line(title = 'Total Portfolio Value [$]')
     
@@ -257,7 +265,7 @@ def display_stock_output(start_date, tickers, sims):
 
             ccolumn.append(item)
         else:
-            item = dict(id=col, name = col, type='datetime') 
+            item = dict(id=col, name = col, type='datetime')
             ccolumn.append(item)
 
 
@@ -265,8 +273,7 @@ def display_stock_output(start_date, tickers, sims):
     return fig, fig2, port_stats_text, risk_free_rate_text, dash_table.DataTable(
         data=best_weights_df.to_dict('records'),
         columns=ccolumn,
-        style_cell={'textAlign':'left'}
-     
- 
+        style_cell={'textAlign':'left'})
+
 if __name__ =='__main__':
-  app.run(debug=True, jupyter_mode="external")
+    app.run(debug=True)
